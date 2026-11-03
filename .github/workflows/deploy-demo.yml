@@ -8,7 +8,7 @@ on:
     paths:
       - 'frontend/**'
       - 'backend/uploads/No_Image_Available.jpg'
-      - '.github/workflows/deploy.yml'
+      - '.github/workflows/deploy-demo.yml'
   workflow_dispatch:
 
 permissions:
