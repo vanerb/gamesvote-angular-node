@@ -21,7 +21,7 @@
 
           <img
             *ngIf="!previewCoverImage()"
-            src="http://localhost:3000/uploads/No_Image_Available.jpg"
+            [src]="getLocalImage('No_Image_Available.jpg')"
             alt="Avatar predeterminado"
           >
 

@@ -4,9 +4,10 @@ name: Deploy Angular frontend to GitHub Pages
 on:
   push:
     branches:
-      - main
+      - master
     paths:
       - 'frontend/**'
+      - 'backend/uploads/No_Image_Available.jpg'
       - '.github/workflows/deploy.yml'
   workflow_dispatch:
 
@@ -29,22 +30,20 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v6
+        uses: actions/checkout@v4
 
       - name: Set up Node.js
-        uses: actions/setup-node@v6
+        uses: actions/setup-node@v4
         with:
           node-version: 22
-          cache: npm
-          cache-dependency-path: frontend/package.json
 
       - name: Install frontend dependencies
         working-directory: frontend
         run: npm install
 
-      - name: Build Angular for GitHub Pages
+      - name: Build Angular demo (API simulada) for GitHub Pages
         working-directory: frontend
-        run: npm run build -- --base-href=/GamesVote-angular-node/
+        run: npm run build -- --configuration demo --base-href=/GamesVote-angular-node/
 
       - name: Prepare SPA fallback
         run: cp frontend/dist/frontend/browser/index.html frontend/dist/frontend/browser/404.html
@@ -53,7 +52,7 @@ jobs:
         uses: actions/configure-pages@v5
 
       - name: Upload frontend only
-        uses: actions/upload-pages-artifact@v4
+        uses: actions/upload-pages-artifact@v3
         with:
           path: frontend/dist/frontend/browser
 

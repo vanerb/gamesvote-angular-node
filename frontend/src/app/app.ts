@@ -4,16 +4,19 @@ import {Index} from './components/index';
 import {Header} from './components/header/header';
 import {Modal} from './components/general/modal/modal';
 import {ModalService} from './services/modal-service';
+import {DemoBanner} from './demo/demo-banner';
+import {environment} from '../environments/environment';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, Header, Modal],
+  imports: [RouterOutlet, Header, Modal, DemoBanner],
   templateUrl: './app.html',
   standalone: true,
   styleUrl: './app.css'
 })
 export class App {
   protected readonly title = signal('frontend');
+  protected readonly demo = environment.demo;
   @ViewChild('modal') modal!: Modal;
 
   constructor(private modalService: ModalService) { }

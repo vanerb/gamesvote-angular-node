@@ -6,7 +6,7 @@ import {Images} from '../../interfaces/images';
 import {NgIf} from '@angular/common';
 import {Router, RouterLink} from '@angular/router';
 import {firstValueFrom} from 'rxjs';
-import {cleanUrlImage} from '../../services/utilities-service';
+import {getLocalImage, getServerImage} from '../../services/utilities-service';
 import {WarningModal} from '../general/warning-modal/warning-modal';
 import {ModalService} from '../../services/modal-service';
 import {User} from '../../interfaces/user';
@@ -35,6 +35,8 @@ export class Profile implements OnInit {
   deletedCoverImage = false;
 
   previewCoverImage = signal<string>('');
+
+  protected readonly getLocalImage = getLocalImage;
 
   constructor(
     private readonly authService: AuthService,
@@ -77,8 +79,7 @@ export class Profile implements OnInit {
 
       if (user.Images?.length > 0) {
         this.previewCoverImage.set(
-          'http://localhost:3000/' +
-          cleanUrlImage(user.Images[0].url)
+          getServerImage(user.Images[0].url)
         );
       }
 

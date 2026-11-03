@@ -23,6 +23,7 @@ import {
   getLocalImage,
   getMediaValue,
   getPlatformIcon,
+  getServerImage,
   transformDate,
 } from '../../services/utilities-service';
 
@@ -215,7 +216,7 @@ export class Details implements OnInit {
       img = val.User?.Images?.[0]?.url;
     }
 
-    return img ? 'http://localhost:3000/' + cleanUrlImage(img) : null;
+    return img ? getServerImage(img) : null;
   }
 
   searchGameById(id: number): void {

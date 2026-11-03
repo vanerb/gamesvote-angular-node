@@ -74,7 +74,7 @@ export class AuthService {
     const headers = new HttpHeaders({
       Authorization: `Bearer ${this.getToken()}`
     });
-    return this.http.put<any>('http://localhost:30007/api/user', formData, {headers})
+    return this.http.put<any>('http://localhost:3000/api/user', formData, {headers})
   }
 
 

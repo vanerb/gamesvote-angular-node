@@ -1,5 +1,6 @@
 import platformIcons from '../../json/platformIcons.json';
 import genreIcons from '../../json/genresIcons.json';
+import {environment} from '../../environments/environment';
 
 
 export function sleep(millis: number) {
@@ -37,7 +38,14 @@ export function getImage(url: string | undefined, type: string = 't_cover_big') 
 }
 
 export function getLocalImage(name: string) {
-  return 'http://localhost:3000/uploads/' + name
+  // En la demo no hay servidor: la imagen por defecto se publica junto a la app (ver angular.json)
+  return environment.demo ? 'demo-uploads/' + name : 'http://localhost:3000/uploads/' + name
+}
+
+export function getServerImage(url: string) {
+  // La demo guarda las fotos subidas como data URLs
+  if (url.startsWith('data:')) return url;
+  return 'http://localhost:3000/' + cleanUrlImage(url)?.replace(/^\/+/, '')
 }
 
 

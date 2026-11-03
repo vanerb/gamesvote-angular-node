@@ -2,7 +2,7 @@ import {Component, OnInit, signal} from '@angular/core';
 import {Router} from '@angular/router';
 import {NgClass, NgForOf, NgIf, NgStyle} from '@angular/common';
 import {AuthService} from '../../services/auth-service';
-import {getLocalImage} from '../../services/utilities-service';
+import {getLocalImage, getServerImage} from '../../services/utilities-service';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatIconModule} from '@angular/material/icon';
 import {MatSidenavModule} from '@angular/material/sidenav';
@@ -99,9 +99,7 @@ export class Header implements OnInit {
       if (user.Images?.length > 0) {
 
         this.previewCoverImage.set(
-          'http://localhost:3000/' +
-          user.Images[0].url
-            .replace(/^\/+/, '')
+          getServerImage(user.Images[0].url)
         );
 
       }

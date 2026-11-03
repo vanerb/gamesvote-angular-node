@@ -6,6 +6,16 @@ La aplicación utiliza la API de **IGDB** para obtener información sobre videoj
 
 ---
 
+## 🚀 Demo en vivo
+
+**https://vanerb.github.io/GamesVote-angular-node/**
+
+La demo funciona sin servidor: el build `demo` (`ng build --configuration demo`) incluye un interceptor (`frontend/src/app/demo/`) que simula toda la API en el navegador con un catálogo de muestra y guarda los cambios en `localStorage`. Cuentas de prueba: `laura@gamesvote.demo`, `carlos@gamesvote.demo` y `marta@gamesvote.demo`, todas con la contraseña `demo1234`. El aviso de la demo tiene un botón para restablecer los datos.
+
+Se despliega con GitHub Actions (`.github/workflows/deploy.yml`) en cada push a `master` que toque `frontend/`.
+
+---
+
 ## ✨ Funcionalidades
 
 ### 🎮 Catálogo de videojuegos
