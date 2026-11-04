@@ -71,7 +71,7 @@ La información propia de la aplicación se almacena en una base de datos **MySQ
 ## 📂 Estructura del proyecto
 
 ```text
-GamesVote-angular-node/
+gamesvote-angular-node/
 │
 ├── frontend/
 │   ├── src/
@@ -167,7 +167,7 @@ Para utilizar la integración con IGDB también es necesario disponer de las cre
 
 ```bash
 git clone https://github.com/vanerb/gamesvote-angular-node.git
-cd GamesVote-angular-node
+cd gamesvote-angular-node
 ```
 
 ---
@@ -202,7 +202,23 @@ Usuario: TU_USUARIO
 Contraseña: TU_CONTRASEÑA
 ```
 
-Asegúrate también de configurar las credenciales necesarias para utilizar la API de IGDB.
+Asegúrate también de configurar las credenciales necesarias para utilizar la API de IGDB. En [`backend/.env-sheet`](backend/.env-sheet) tienes la lista de variables, que van en `backend/.env`: `DB_HOST`, `DB_PORT`, `DB_NAME`, `DB_USER`, `DB_PASSWORD`, `JWT_SECRET`, `PORT` e IGDB.
+
+### 🧪 Datos de prueba (opcional)
+
+[`database/gamesvote_prueba.sql`](database/gamesvote_prueba.sql) crea la base de datos, sus tablas y datos inventados. No borra nada: si las tablas ya existen, la importación se detiene con un error. Desde la raíz del repositorio:
+
+```bash
+mysql -u root -p --default-character-set=utf8mb4 -e "source database/gamesvote_prueba.sql"
+```
+
+Cuentas: `nuria@gamesvote.test`, `diego@gamesvote.test` y `elena@gamesvote.test`.
+
+La contraseña de todas es `Usuario123*`. Es pública, así que no uses estas cuentas fuera de un entorno local. El SQL usa la base `gamesvote`, así que pon `DB_NAME=gamesvote`.
+
+### 🔑 Clave de las sesiones
+
+La API firma las sesiones con la variable de entorno `JWT_SECRET`. Sin ella usa una clave de desarrollo, válida solo en local: si despliegas el proyecto, define una propia y larga.
 
 Una vez configurado todo, inicia el servidor:
 

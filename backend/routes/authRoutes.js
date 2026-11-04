@@ -1,6 +1,7 @@
 const express = require("express");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const jwtSecret = require("../middleware/jwtSecret");
 const User = require("../models/User");
 const Image = require("../models/Image");
 const multer = require("multer");
@@ -65,7 +66,7 @@ router.post("/login", async (req, res) => {
         const isMatch = await bcrypt.compare(password, user.password);
         if (!isMatch) return res.status(400).json({ error: "Contraseña incorrecta" });
 
-        const token = jwt.sign({ id: user.id, email: user.email }, "secretkey");
+        const token = jwt.sign({ id: user.id, email: user.email }, jwtSecret());
 
         user.update({
             token: token,
