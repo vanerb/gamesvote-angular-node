@@ -43,7 +43,7 @@ jobs:
 
       - name: Build Angular demo (API simulada) for GitHub Pages
         working-directory: frontend
-        run: npm run build -- --configuration demo --base-href=/GamesVote-angular-node/
+        run: npm run build -- --configuration demo --base-href=/${{ github.event.repository.name }}/
 
       - name: Prepare SPA fallback
         run: cp frontend/dist/frontend/browser/index.html frontend/dist/frontend/browser/404.html
