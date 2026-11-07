@@ -3,11 +3,12 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Router} from '@angular/router';
 import {LoginForm, Token} from '../interfaces/auth';
 
+import { environment } from '../../environments/environment';
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  url = 'http://localhost:3000/';
+  url = environment.apiUrl + '/';
 
   constructor( private router: Router, private http: HttpClient) {}
 
@@ -67,14 +68,14 @@ export class AuthService {
     const headers = new HttpHeaders({
       Authorization: `Bearer ${this.getToken()}`
     });
-    return this.http.get<any>('http://localhost:3000/api/auth/user', {headers})
+    return this.http.get<any>(environment.apiUrl + '/api/auth/user', {headers})
   }
 
   update(formData: FormData) {
     const headers = new HttpHeaders({
       Authorization: `Bearer ${this.getToken()}`
     });
-    return this.http.put<any>('http://localhost:3000/api/user', formData, {headers})
+    return this.http.put<any>(environment.apiUrl + '/api/user', formData, {headers})
   }
 
 

@@ -24,14 +24,15 @@ const upload = multer({ storage });
 
 router.post("/register", upload.single("profileImage"), async (req, res) => {
     try {
-        const { name, cognames, tlf, email, type, password } = req.body;
+        const { name, cognames, tlf, email, password } = req.body;
 
         const userExists = await User.findOne({ where: { email } });
         if (userExists) return res.status(400).json({ error: "El usuario ya existe" });
 
         const hashedPassword = await bcrypt.hash(password, 10);
 
-        const user = await User.create({ name, cognames, tlf, email, type, password: hashedPassword });
+        // El tipo de cuenta no lo elige el cliente.
+        const user = await User.create({ name, cognames, tlf, email, type: "user", password: hashedPassword });
 
         let profileImage = null;
         if (req.file) {
@@ -60,11 +61,12 @@ router.post("/login", async (req, res) => {
     try {
         const { email, password } = req.body;
 
-        const user = await User.findOne({ where: { email } });
-        if (!user) return res.status(400).json({ error: "Usuario no encontrado" });
+        const user = await User.scope("withSecrets").findOne({ where: { email } });
+        // Mismo mensaje en los dos casos para no revelar qué correos están registrados.
+        if (!user) return res.status(400).json({ error: "Correo o contraseña incorrectos" });
 
         const isMatch = await bcrypt.compare(password, user.password);
-        if (!isMatch) return res.status(400).json({ error: "Contraseña incorrecta" });
+        if (!isMatch) return res.status(400).json({ error: "Correo o contraseña incorrectos" });
 
         const token = jwt.sign({ id: user.id, email: user.email }, jwtSecret());
 

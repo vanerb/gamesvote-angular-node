@@ -14,31 +14,6 @@ const Image = require("../models/Image");
 const authMiddleware = require("../middleware/authMiddleWare");
 const bcrypt = require("bcryptjs");
 
-router.post("/", upload.single("profileImage"), async (req, res) => {
-    try {
-        const user = await User.create(req.body);
-
-        let profileImage = null;
-        if (req.file) {
-             await Image.create({
-                url: req.file.path,
-                from: "user",
-                fromId: user.id
-            });
-        }
-
-        const userWithProfile = await User.findByPk(user.id, {
-            include: [
-                { model: Image, where: { from: "user" }, required: false }
-            ]
-        });
-
-        res.json(userWithProfile);
-    } catch (err) {
-        res.status(500).json({ error: err.message });
-    }
-});
-
 router.put("/", upload.single("profileImage"), authMiddleware, async (req, res) => {
     try {
         const userId = req.user.id;
@@ -85,6 +60,7 @@ router.put("/", upload.single("profileImage"), authMiddleware, async (req, res) 
 router.get("/", async (req, res) => {
     try {
         const users = await User.findAll({
+            attributes: ["id", "name", "cognames", "createdAt"],
             include: [
                 {
                     model: Image,
@@ -116,6 +92,7 @@ router.get("/me", authMiddleware, async (req, res) => {
 router.get("/:id", async (req, res) => {
     try {
         const user = await User.findByPk(req.params.id, {
+            attributes: ["id", "name", "cognames", "createdAt"],
             include: [
                 {
                     model: Image,

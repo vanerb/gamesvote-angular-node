@@ -11,7 +11,10 @@ const User = sequelize.define("User", {
     token: { type: DataTypes.STRING, allowNull: true },
 }, {
     tableName: "Users",
-    timestamps: true
+    timestamps: true,
+    // La contraseña y el token nunca salen en las respuestas; el login usa el scope "withSecrets".
+    defaultScope: { attributes: { exclude: ["password", "token"] } },
+    scopes: { withSecrets: {} }
 });
 
 module.exports = User;

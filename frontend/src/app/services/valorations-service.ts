@@ -3,11 +3,12 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {AuthService} from './auth-service';
 import {Valoration} from '../interfaces/valoration';
 
+import { environment } from '../../environments/environment';
 @Injectable({
   providedIn: 'root'
 })
 export class ValorationsService {
-  url = 'http://localhost:3000/api/valoration';
+  url = environment.apiUrl + '/api/valoration';
 
   constructor(private http: HttpClient, private readonly authService: AuthService) { }
 

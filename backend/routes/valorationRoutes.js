@@ -56,15 +56,14 @@ router.put("/:id", authMiddleware, upload.single("valorationImage"), async (req,
         const { description, value, gameId} = req.body;
 
         const valoration = await Valoration.findByPk(req.params.id);
-        if (!valoration) return res.status(404).json({error: "Reserva no encontrada"});
+        if (!valoration) return res.status(404).json({error: "Valoración no encontrada"});
+        if (valoration.userId !== req.user.id) return res.status(403).json({error: "Solo puedes editar tus valoraciones"});
 
         await valoration.update({
             description,
             value,
             gameId,
-            createdAt: valoration.createdAt,
-            updatedAt: new Date(),
-            userId: req.user.id
+            updatedAt: new Date()
         })
 
         if (req.file) {
@@ -311,12 +310,15 @@ router.get("/:id", async (req, res) => {
     }
 });
 
-router.delete("/:id", async (req, res) => {
+router.delete("/:id", authMiddleware, async (req, res) => {
     try {
         const valoration = await Valoration.findByPk(req.params.id);
 
         if (!valoration) {
-            return res.status(404).json({ error: "Valoration not found" });
+            return res.status(404).json({ error: "Valoración no encontrada" });
+        }
+        if (valoration.userId !== req.user.id) {
+            return res.status(403).json({ error: "Solo puedes borrar tus valoraciones" });
         }
 
         await valoration.destroy();

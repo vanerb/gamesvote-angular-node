@@ -3,12 +3,13 @@ import { defer, delay, from } from 'rxjs';
 import { Games } from '../interfaces/games';
 import { DEMO_GAMES, DEMO_USERS, DEMO_VALORATIONS, DemoUser, DemoValoration } from './demo-seed';
 
+import { environment } from '../../environments/environment';
 /**
  * Réplica en el navegador de la API de Express (mismas rutas y respuestas) para que
  * la demo de GitHub Pages funcione sin servidor. Los datos se guardan en localStorage.
  */
 
-const API = 'http://localhost:3000/';
+const API = environment.apiUrl + '/';
 const STORAGE_KEY = 'gamesvote-demo-db';
 
 interface DemoDb {

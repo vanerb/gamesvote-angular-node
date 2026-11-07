@@ -6,11 +6,12 @@ import {Filters} from '../interfaces/filters';
 
 
 
+import { environment } from '../../environments/environment';
 @Injectable({
   providedIn: 'root'
 })
 export class GamesServices {
-  private apiUrl = 'http://localhost:3000/api/igdb';
+  private apiUrl = environment.apiUrl + '/api/igdb';
 
   constructor(private http: HttpClient) {
   }

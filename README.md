@@ -1,6 +1,6 @@
 # 🎮 GamesVote — Angular + Node.js
 
-**GamesVote** es una aplicación web desarrollada con **Angular** en el frontend y **Node.js** en el backend que permite consultar un catálogo de videojuegos, valorarlos, escribir reseñas y gestionar una colección personal.
+**GamesVote** es una aplicación web desarrollada con **Angular** en el frontend y **Node.js** en el backend que permite consultar un catálogo de videojuegos, puntuarlos del 1 al 10 y escribir reseñas con imágenes, que cada usuario reúne en su sección «Mis reseñas».
 
 La aplicación utiliza la API de **IGDB** para obtener información sobre videojuegos y **MySQL** para almacenar los datos propios de la aplicación.
 
@@ -24,17 +24,17 @@ La aplicación permite consultar un catálogo de videojuegos utilizando informac
 
 Los usuarios pueden consultar información sobre diferentes títulos y acceder a sus detalles.
 
-### ⭐ Valoraciones
+### ⭐ Valoraciones y reseñas
 
-Los usuarios pueden valorar los videojuegos y registrar su opinión sobre los diferentes títulos.
-
-### 📝 Reseñas
-
-Es posible añadir reseñas y opiniones personales sobre los videojuegos.
+Con una cuenta puedes puntuar cada juego del 1 al 10, escribir una reseña y añadirle imágenes. En la ficha del juego se ven las reseñas de todos los usuarios y puedes editar o borrar la tuya; «Mis reseñas» reúne todas las que has escrito. Solo quien escribe una reseña puede modificarla.
 
 ### 🔎 Búsqueda y filtrado
 
-La aplicación permite buscar videojuegos y filtrar los resultados para localizar rápidamente los títulos deseados.
+Puedes buscar por nombre, filtrar por plataforma y ordenar los resultados.
+
+### 👤 Perfil
+
+Cada usuario puede editar sus datos, su contraseña y su foto de perfil.
 
 ### 💾 Gestión de datos
 
@@ -137,15 +137,13 @@ La aplicación combina la información obtenida de IGDB con los datos gestionado
 
 El proyecto utiliza **MySQL** para almacenar la información propia de la aplicación.
 
-La base de datos permite conservar datos relacionados con:
+Guarda tres tablas:
 
-* Usuarios
-* Videojuegos
-* Valoraciones
-* Reseñas
-* Favoritos
+* **Users**: cuentas, con la contraseña cifrada con bcrypt. La API nunca devuelve la contraseña ni el token.
+* **Valoration**: puntuación y reseña de cada usuario, enlazada al juego por su identificador de IGDB.
+* **Images**: fotos de perfil e imágenes de las reseñas.
 
-Los datos generales de los videojuegos se obtienen principalmente mediante la API de IGDB.
+Los datos de los videojuegos (nombre, portada, plataformas...) no se guardan: se piden a la API de IGDB.
 
 ---
 
@@ -259,6 +257,8 @@ El frontend estará disponible normalmente en:
 ```text
 http://localhost:4200
 ```
+
+Si el backend no está en `http://localhost:3000`, cambia `apiUrl` en [`frontend/src/environments/environment.ts`](frontend/src/environments/environment.ts).
 
 ---
 

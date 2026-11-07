@@ -39,13 +39,13 @@ export function getImage(url: string | undefined, type: string = 't_cover_big') 
 
 export function getLocalImage(name: string) {
   // En la demo no hay servidor: la imagen por defecto se publica junto a la app (ver angular.json)
-  return environment.demo ? 'demo-uploads/' + name : 'http://localhost:3000/uploads/' + name
+  return environment.demo ? 'demo-uploads/' + name : environment.apiUrl + '/uploads/' + name
 }
 
 export function getServerImage(url: string) {
   // La demo guarda las fotos subidas como data URLs
   if (url.startsWith('data:')) return url;
-  return 'http://localhost:3000/' + cleanUrlImage(url)?.replace(/^\/+/, '')
+  return environment.apiUrl + '/' + cleanUrlImage(url)?.replace(/^\/+/, '')
 }
 
 
