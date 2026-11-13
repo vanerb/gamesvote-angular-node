@@ -17,6 +17,16 @@ Catálogo de videojuegos con reseñas de la comunidad: busca juegos, puntúalos 
 
 Ver el catálogo y las reseñas es público; para escribir hace falta iniciar sesión.
 
+### Capturas
+
+| Catálogo | Ficha de un juego |
+| --- | --- |
+| ![Catálogo de videojuegos con buscador y filtros](docs/screenshots/inicio.webp) | ![Ficha de un videojuego con su nota y las reseñas de la comunidad](docs/screenshots/ficha.webp) |
+
+<p align="center">
+  <img src="docs/screenshots/movil.webp" alt="Catálogo de GamesVote en un móvil" width="280">
+</p>
+
 ## Demo
 
 La demo es el frontend compilado en modo `demo`: un interceptor HTTP simula toda la API dentro del navegador, con un catálogo de muestra en lugar de IGDB. Tus cambios se guardan en el `localStorage` de tu navegador y el botón del aviso inferior vuelve a los datos iniciales.
